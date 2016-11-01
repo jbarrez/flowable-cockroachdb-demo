@@ -1,7 +1,7 @@
 * Download latest CockroachDB tarball
 * Untar and run: ./cockroachdb start
 * ./cockroach start --store=node2 --port=26258 --http-port=8081 --join=localhost:26257 
-* 
+* ./cockroach start --store=node3 --port=26259 --http-port=8082 --join=localhost:26257 
 * Admin UI is running on http://localhost:8080/
 * Create a database and a user: ./cockroachdb sql
 * Execute following statements:
@@ -12,6 +12,9 @@
 
 sql=$(wget https://raw.githubusercontent.com/jbarrez/flowable-cockroachdb-demo/master/engine-schema.sql -q -O -)
 ./cockroach sql --database=flowable --user=maxroach -e "$sql"
+
+
+
 
 
 ---------------------------------------------------------------------------------------------------------    

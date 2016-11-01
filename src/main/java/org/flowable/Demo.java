@@ -2,6 +2,7 @@ package org.flowable;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -11,6 +12,7 @@ import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.task.Task;
 
 /**
@@ -51,11 +53,21 @@ public class Demo {
           System.out.println("Completed " + taskCounter + " tasks");
         }
       }
-      tasks.addAll(taskService.createTaskQuery().list());
+      
+      if (tasks.isEmpty()) {
+        tasks.addAll(taskService.createTaskQuery().list());
+      }
     }
     
     System.out.println("Finished all tasks. Finished process instances = "
         + historyService.createHistoricProcessInstanceQuery().finished().count());
+    
+    List<HistoricTaskInstance> historicTasks = historyService.createHistoricTaskInstanceQuery().finished().list();
+    long total = 0;
+    for (HistoricTaskInstance historicTask : historicTasks) {
+      total += historicTask.getDurationInMillis();
+    }
+    System.out.println("Average time tasks open : " + ((double)total/(double)historicTasks.size()) + " ms");
     
     processEngine.close();
   }
