@@ -3,15 +3,21 @@
   <process id="myProcess" name="My process" isExecutable="true">
     <startEvent id="startevent2" name="Start"></startEvent>
     <subProcess id="subprocess1" name="Sub Process">
-      <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="exclusivegateway1"></sequenceFlow>
+      <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="parallelgateway3"></sequenceFlow>
       <startEvent id="startevent1" name="Start"></startEvent>
       <userTask id="usertask2" name="Task two"></userTask>
       <userTask id="usertask1" name="Task one"></userTask>
-      <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-      <sequenceFlow id="flow2" sourceRef="exclusivegateway1" targetRef="usertask1"></sequenceFlow>
-      <sequenceFlow id="flow3" sourceRef="exclusivegateway1" targetRef="usertask2"></sequenceFlow>
-      <sequenceFlow id="flow4" sourceRef="exclusivegateway1" targetRef="usertask3"></sequenceFlow>
+      <sequenceFlow id="flow2" sourceRef="parallelgateway3" targetRef="usertask1"></sequenceFlow>
+      <sequenceFlow id="flow3" sourceRef="parallelgateway3" targetRef="usertask2"></sequenceFlow>
+      <sequenceFlow id="flow4" sourceRef="parallelgateway3" targetRef="usertask3"></sequenceFlow>
       <userTask id="usertask3" name="Task three"></userTask>
+      <parallelGateway id="parallelgateway3" name="Exclusive Gateway"></parallelGateway>
+      <sequenceFlow id="flow18" sourceRef="usertask1" targetRef="parallelgateway4"></sequenceFlow>
+      <parallelGateway id="parallelgateway4" name="Exclusive Gateway"></parallelGateway>
+      <sequenceFlow id="flow19" sourceRef="usertask2" targetRef="parallelgateway4"></sequenceFlow>
+      <sequenceFlow id="flow20" sourceRef="usertask3" targetRef="parallelgateway4"></sequenceFlow>
+      <endEvent id="endevent2" name="End"></endEvent>
+      <sequenceFlow id="flow21" sourceRef="parallelgateway4" targetRef="endevent2"></sequenceFlow>
     </subProcess>
     <sequenceFlow id="flow7" sourceRef="startevent2" targetRef="parallelgateway1"></sequenceFlow>
     <parallelGateway id="parallelgateway1" name="Exclusive Gateway"></parallelGateway>
@@ -53,11 +59,17 @@
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="55.0" width="105.0" x="510.0" y="140.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
-        <omgdc:Bounds height="40.0" width="40.0" x="425.0" y="248.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
         <omgdc:Bounds height="55.0" width="105.0" x="510.0" y="340.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway3" id="BPMNShape_parallelgateway3">
+        <omgdc:Bounds height="40.0" width="40.0" x="425.0" y="248.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway4" id="BPMNShape_parallelgateway4">
+        <omgdc:Bounds height="40.0" width="40.0" x="660.0" y="247.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="720.0" y="250.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="boundarytimer1" id="BPMNShape_boundarytimer1">
         <omgdc:Bounds height="30.0" width="30.0" x="680.0" y="91.0"></omgdc:Bounds>
@@ -100,6 +112,25 @@
         <omgdi:waypoint x="445.0" y="288.0"></omgdi:waypoint>
         <omgdi:waypoint x="445.0" y="367.0"></omgdi:waypoint>
         <omgdi:waypoint x="510.0" y="367.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="615.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="679.0" y="169.0"></omgdi:waypoint>
+        <omgdi:waypoint x="680.0" y="247.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="615.0" y="268.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="267.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="615.0" y="367.0"></omgdi:waypoint>
+        <omgdi:waypoint x="680.0" y="367.0"></omgdi:waypoint>
+        <omgdi:waypoint x="680.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="700.0" y="267.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="700.0" y="267.0"></omgdi:waypoint>
+        <omgdi:waypoint x="720.0" y="267.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="95.0" y="322.0"></omgdi:waypoint>

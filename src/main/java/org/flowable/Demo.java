@@ -62,13 +62,6 @@ public class Demo {
     System.out.println("Finished all tasks. Finished process instances = "
         + historyService.createHistoricProcessInstanceQuery().finished().count());
     
-    List<HistoricTaskInstance> historicTasks = historyService.createHistoricTaskInstanceQuery().finished().list();
-    long total = 0;
-    for (HistoricTaskInstance historicTask : historicTasks) {
-      total += historicTask.getDurationInMillis();
-    }
-    System.out.println("Average time tasks open : " + ((double)total/(double)historicTasks.size()) + " ms");
-    
     processEngine.close();
   }
 
